@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "seeded-run",
+  "artifacts": [
+    {
+      "path": "sessions/novice/frames/novice-f1.png",
+      "sha256": "5a009c31fe0ab8be39d957317ead993caa875d3f6ba159fb2f3726e160cdacb4",
+      "media_type": "image/png",
+      "kind": "frame"
+    },
+    {
+      "path": "sessions/expert/frames/expert-f1.png",
+      "sha256": "5a009c31fe0ab8be39d957317ead993caa875d3f6ba159fb2f3726e160cdacb4",
+      "media_type": "image/png",
+      "kind": "frame"
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "f530f3a45657e633d330b73b04b8c69e24320338f51f66200c9bc8e5b93b4dda",
+      "media_type": "application/json",
+      "kind": "manifest"
+    },
+    {
+      "path": "capabilities.json",
+      "sha256": "e694920931626279cdc177ee161d306b786056a18212625e536ccc6cef0e0e17",
+      "media_type": "application/json",
+      "kind": "capabilities"
+    },
+    {
+      "path": "findings.json",
+      "sha256": "d1ea99dde5eae239515f7a0a72a96a096aa23f5f026e8cad237f7c41da953dd7",
+      "media_type": "application/json",
+      "kind": "findings"
+    },
+    {
+      "path": "sessions/novice/events.jsonl",
+      "sha256": "75da66ecea347079cf10f28e1d5bbefa2a08b00db5509d95b4b838a7127a6821",
+      "media_type": "application/x-ndjson",
+      "kind": "event-log"
+    },
+    {
+      "path": "sessions/novice/outcome.json",
+      "sha256": "ddbbadc2b965c108b38d521c8b6fafdb778056dbee48c6b4d88c796c2b2cd874",
+      "media_type": "application/json",
+      "kind": "outcome"
+    },
+    {
+      "path": "sessions/expert/events.jsonl",
+      "sha256": "63cf35a1a5bdbf079a0d167e9ae016f12314eb56093f58fbde3da09587452612",
+      "media_type": "application/x-ndjson",
+      "kind": "event-log"
+    },
+    {
+      "path": "sessions/expert/outcome.json",
+      "sha256": "7322e07a5a23d93a8ba758710ec269816726fec3d8b47b242b8ce726d587cbd3",
+      "media_type": "application/json",
+      "kind": "outcome"
+    }
+  ]
+}

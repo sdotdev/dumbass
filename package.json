@@ -8,7 +8,7 @@
   "engines": { "node": ">=22.6" },
   "scripts": {
     "build": "npm run build -w @dumbass/runner && npm run build -w @dumbass/adapter-web",
-    "test": "npm run test --workspaces --if-present && node --test tests/build.test.mjs tests/install.test.mjs tests/schemas.test.mjs && node --test evals/tests/*.test.mjs",
+    "test": "npm run test --workspaces --if-present && node --test tests/build.test.mjs tests/install.test.mjs tests/schemas.test.mjs tests/skills.test.mjs && node --test evals/tests/*.test.mjs",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "validate": "node scripts/validate-skills.mjs && node scripts/check-links.mjs && node scripts/check-bundle-drift.mjs && npm run build && npm run typecheck && npm test",
     "package:skills": "node scripts/package-skills.mjs",

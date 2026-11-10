@@ -16,3 +16,5 @@ Version 1.0.0. Canonical contracts and audit guidance.
 - [Remediation template](templates/remediation.md)
 
 Skill-local copies are distribution resources. Keep them synchronized with these canonical files and verify equality in packaging checks.
+
+The remediation playbooks in [`playbooks/`](../playbooks/general-web.md) follow the same rule: `dumbass-remediate` and `dumbass-fix` carry copies under `assets/playbooks/`.

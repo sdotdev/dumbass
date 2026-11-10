@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "seeded-run",
+  "session_id": "novice",
+  "frame_id": "novice-f1",
+  "captured_at": "2026-11-10T12:00:01Z",
+  "path": "sessions/novice/frames/novice-f1.png",
+  "sha256": "5a009c31fe0ab8be39d957317ead993caa875d3f6ba159fb2f3726e160cdacb4",
+  "width": 1440,
+  "height": 900,
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "device_scale_factor": 1
+  },
+  "scroll": {
+    "x": 0,
+    "y": 0
+  },
+  "coordinate_space": "screenshot-pixels",
+  "redactions": []
+}

@@ -1,5 +1,32 @@
 # Changelog
 
+## Unreleased
+
+Skill instructions were revised after an audit. Prompt changes need evaluation (see [architecture](docs/architecture.md)); the evidence and its limits are listed below. No human review of these changes has been recorded.
+
+### Skills (all eight bumped to 1.1.0; protocol stays 1.0.0)
+
+- Descriptions rewritten around how people actually ask (audit a flow, review a screenshot, act as a newcomer), with routing between sibling skills.
+- Each skill now says where it sits in the pipeline, delegates to its siblings when installed, and falls back to its bundled persona cards and protocol when installed alone. Sequential single-context persona runs are labeled as a degraded mode.
+- Evaluators (`dumbass-novice`, `dumbass-expert`) no longer load the severity rubric or UX principles, which belong to the observer, and are told not to open the other persona card.
+- `dumbass-observe` checks hashes and references first, rejects unsupported outcomes and claims instead of repairing them, and records what it dropped or downgraded.
+- `dumbass-remediate` and `dumbass-fix` bundle the remediation playbooks (previously unreachable from an installed skill) and say how to reconcile their keyboard and assistive-technology criteria with screenshot-only verification.
+- Boilerplate shared by all eight skills was replaced with role-specific limits that explain their reasons.
+- Worked examples now contain real, schema-valid artifacts instead of restating the procedure.
+
+### Tooling
+
+- `scripts/validate-skills.mjs` also checks description length, YAML-safe single-line descriptions, frontmatter keys, `metadata.version`, body length and sibling-skill references.
+- `scripts/check-bundle-drift.mjs` also verifies the bundled playbook copies.
+- `tests/skills.test.mjs` validates every worked-example artifact against the protocol schemas and pins the playbook and evaluator-isolation decisions.
+- `evals/skill-cases/` holds four behavior cases in skill-creator format.
+
+### Evidence and limits
+
+- Four static-input cases, one run per configuration: the original and revised skills both pass every assertion (29 of 29 each). This shows no regression; it does not show improvement.
+- Suite-level routing with all eight descriptions installed at once (two runs per query): 30/48 → 35/48 correct-skill picks on 24 queries used while tuning, and 11/26 → 16/26 on 13 queries held out from tuning. No wrong-sibling picks and no false triggers in either set. Small samples; treat as direction, not a rate.
+- Not verified: interactive browser journeys, `dumbass-fix` end to end, and behavior in hosts other than Claude Code.
+
 ## 0.1.0 - 2026-11-10
 
 - Initial portable skill suite for general web, dashboards, and mobile web.

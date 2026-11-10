@@ -12,6 +12,8 @@ node evals/browser-smoke.mjs
 
 `browser-smoke.mjs` additionally requires Playwright and Chromium. It uses Playwright's browser when available, falls back to `/usr/bin/chromium`, and accepts an explicit `UX_EVAL_CHROMIUM` executable path. It checks live interactions, responsive rendering, keyboard behavior, paired regressions, and every route. It writes no screenshots or customer data.
 
+This folder also holds [skill behavior cases](skill-cases/README.md): small static-input checks of how each skill behaves, used when its instructions change.
+
 ## Evaluation boundary
 
 Give the audit agent **only the served URL and one exported task**, using a browser-only worker or an isolated workspace without this repository. `evaluator-only/` contains answers and fixture configuration. Its name and the HTTP allowlist prevent accidental browser disclosure, **not filesystem access by an agent sharing the checkout**. Do not mount this directory, `server.mjs`, tests, or the corpus README into the audit worker. A report from an agent that could read the answers is not a valid blind evaluation.

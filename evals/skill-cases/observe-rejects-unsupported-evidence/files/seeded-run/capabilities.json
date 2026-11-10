@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "host": "seed-host",
+  "adapter_version": "0.0.0",
+  "mode": "static",
+  "capabilities": {
+    "screenshots": true,
+    "coordinate_actions": false,
+    "keyboard": false,
+    "isolated_sessions": false,
+    "baseline_reset": false,
+    "enforced_tool_boundary": false,
+    "native_device": false
+  },
+  "limitations": [
+    "Single supplied screenshot; no interaction",
+    "Personas ran sequentially in one context"
+  ]
+}

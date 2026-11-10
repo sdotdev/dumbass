@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: observe-rejects-unsupported-evidence
+expected_outcome: |
+  The observer validates integrity, flags the hash mismatch, the unsupported static 'completed' outcome, the dangling evidence reference and the unsupported WCAG claim, keeps the one well-evidenced finding, and renders an honest report.
+context:
+  scaffold_script: place-files.sh

@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "seeded-run",
+  "findings": [
+    {
+      "finding_id": "F-1",
+      "title": "Headline revenue and daily rows disagree by a factor of 1,000",
+      "task_id": "task-001",
+      "personas": [
+        "novice",
+        "expert"
+      ],
+      "principles": [
+        "cognitive-load",
+        "domain-specific"
+      ],
+      "evidence": [
+        {
+          "session_id": "novice",
+          "frame_id": "novice-f1",
+          "event_id": "novice-e1",
+          "description": "Card shows $420,000 while Day 1-3 rows sum to $420"
+        },
+        {
+          "session_id": "expert",
+          "frame_id": "expert-f1",
+          "event_id": "expert-e1",
+          "description": "Same mismatch visible"
+        }
+      ],
+      "symptom": "Revenue (USD) card reads $420,000 for All days; the detail table in USD lists $120, $140, $160 which sum to $420.",
+      "consequence": "A reader cannot tell which figure is right or what unit scale each uses, so the number cannot be quoted in a review.",
+      "severity": "high",
+      "confidence": "high",
+      "recommendation": "State the unit scale on both figures or make them consistent.",
+      "acceptance_criteria": [
+        "Headline and detail rows use the same unit scale or both state their scale",
+        "A reader can reconcile the total with the rows without outside knowledge"
+      ]
+    },
+    {
+      "finding_id": "F-4",
+      "title": "Reporting period control does not say whether the table or only the headline changes",
+      "task_id": "task-001",
+      "personas": [
+        "novice"
+      ],
+      "principles": [
+        "affordance-and-status"
+      ],
+      "evidence": [
+        {
+          "session_id": "novice",
+          "frame_id": "novice-f1",
+          "event_id": "novice-e1",
+          "description": "Selected period shown in two places"
+        }
+      ],
+      "symptom": "The Reporting period select and the card caption both say All days, and the screenshot gives no cue whether the detail table follows the filter.",
+      "consequence": "A first-time reader may not know whether changing the period updates the rows they are comparing against.",
+      "severity": "low",
+      "confidence": "low",
+      "recommendation": "Label the table with the applied period.",
+      "acceptance_criteria": [
+        "The table heading names the applied period"
+      ]
+    },
+    {
+      "finding_id": "F-5",
+      "title": "Snapshot freshness is stated twice with the same timestamp",
+      "task_id": "task-001",
+      "personas": [
+        "expert"
+      ],
+      "principles": [
+        "progressive-disclosure-and-efficiency"
+      ],
+      "evidence": [
+        {
+          "session_id": "expert",
+          "frame_id": "expert-f1",
+          "event_id": "expert-e1",
+          "description": "Review clock and Last updated lines"
+        }
+      ],
+      "symptom": "Review clock and Last updated both read November 10, 2026, 12:00 UTC.",
+      "consequence": "Minor repetition; the expert must read both to confirm freshness.",
+      "severity": "low",
+      "confidence": "medium",
+      "recommendation": "Merge the freshness statements into one line.",
+      "acceptance_criteria": [
+        "Freshness appears once, next to the headline figure"
+      ]
+    }
+  ]
+}

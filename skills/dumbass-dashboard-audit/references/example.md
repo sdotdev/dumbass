@@ -2,10 +2,52 @@
 
 Request: “Audit the sales dashboard. Have each persona compare this month with last month, filter to the west region, identify the largest account, and start an authorized test export.”
 
-Expected handling:
+## What good handling decides up front
 
-1. Freeze tasks such as changing a date range, comparing metrics, finding a record, drilling into a chart, or exporting visible data.
-2. Read both bundled web and dashboard profiles. Apply the shared audit protocol; do not infer data correctness from plausible-looking charts.
-3. Record role, date range, timezone, filter state, and starting state when available without leaking hidden context.
+- **Tasks:** four tasks, each with an on-screen success criterion: compare periods, apply the region filter, name the largest account, start the test export. Record the account role, date range, timezone and starting filter state in the manifest.
+- **Mutation:** starting the export is the only authorized mutation; anything else that changes data is blocked.
+- **Reading numbers:** if a headline reads 420,000 and the rows beneath it sum to 420, that is a finding about the interface whatever the truth is. Which figure is right is a data question; the report says so and does not pick one.
 
-Use [the run manifest example](../assets/example-run.json) to see input structure. It is illustrative, not permission to contact example.test or perform its mutation. Follow [the action policy](safety.md). Outcomes and findings must come from actual supplied evidence.
+## Coverage that tells the truth
+
+An export you could not reach is `blocked`, not quietly absent, and a role you never visited is a limitation, not a pass.
+
+```json schema=coverage
+{
+  "schema_version": "1.0.0",
+  "run_id": "sales-dashboard-1",
+  "items": [
+    {
+      "task_id": "task-004",
+      "persona": "expert",
+      "status": "blocked",
+      "states": [
+        "Export button visible but disabled for the supplied role"
+      ],
+      "principle_coverage": [
+        {
+          "principle": "affordance-and-status",
+          "status": "finding",
+          "note": "Disabled export gives no reason on screen"
+        },
+        {
+          "principle": "domain-specific",
+          "status": "not-observable",
+          "note": "Export contents were never produced, so scope and units cannot be judged"
+        }
+      ],
+      "limitations": [
+        "Only the analyst role was available",
+        "Metric correctness requires separate data verification"
+      ]
+    }
+  ],
+  "limitations": [
+    "Export contents were never produced, so scope, units and row counts are untested",
+    "Metric correctness requires separate data verification"
+  ],
+  "extensions": {}
+}
+```
+
+Follow [the audit protocol](audit-protocol.md) and the [dashboard profile](../assets/profiles/dashboard.json).

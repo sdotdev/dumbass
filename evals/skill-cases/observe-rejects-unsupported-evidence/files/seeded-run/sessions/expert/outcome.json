@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "seeded-run",
+  "session_id": "expert",
+  "persona": "expert",
+  "task_id": "task-001",
+  "status": "inconclusive",
+  "summary": "Could read headline and rows; cannot confirm filter or drilldown behaviour from one image.",
+  "evidence": [
+    {
+      "session_id": "expert",
+      "frame_id": "expert-f1",
+      "event_id": "expert-e1",
+      "description": "Headline and daily rows visible"
+    }
+  ],
+  "actions": 0,
+  "duration_ms": 1000,
+  "uncertainties": [
+    "No interaction available"
+  ],
+  "stop_reason": "static-screenshot-only"
+}

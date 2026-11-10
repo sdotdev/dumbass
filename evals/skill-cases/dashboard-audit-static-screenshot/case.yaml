@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: dashboard-audit-static-screenshot
+expected_outcome: |
+  A static, screenshot-only dashboard audit report plus findings, honest about what a single image can and cannot establish, that catches the headline-vs-daily-rows scale mismatch.
+context:
+  scaffold_script: place-files.sh

@@ -22,7 +22,7 @@ portable skills -> orchestrator -> isolated persona sessions
 artifacts -> semantic validator -> observer -> report/remediation
 ```
 
-`protocol/` contains canonical schemas and profiles. Installable skill directories copy every required instruction so they remain usable outside this repository. `packages/runner` implements the capability boundary. Adapters implement only the closed visual action contract. `evals/` contains resettable fixtures and evaluator-only ground truth.
+`protocol/` contains canonical schemas and profiles, and `playbooks/` the remediation strategy; the planner and implementer skills bundle the playbooks. Installable skill directories copy every required instruction so they remain usable outside this repository, and `scripts/check-bundle-drift.mjs` verifies every copy against its canonical source. `packages/runner` implements the capability boundary. Adapters implement only the closed visual action contract. `evals/` contains resettable fixtures and evaluator-only ground truth, and `evals/skill-cases/` holds the behavior cases used to evaluate prompt changes.
 
 ## Degraded modes
 

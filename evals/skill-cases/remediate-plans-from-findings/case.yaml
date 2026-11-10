@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: remediate-plans-from-findings
+expected_outcome: |
+  A remediation.json that validates, binds to the findings file by hash, selects F-1 and F-4, defers F-5, avoids invented file paths, and gives observable acceptance criteria and persona tradeoffs without claiming anything is fixed.
+context:
+  scaffold_script: place-files.sh

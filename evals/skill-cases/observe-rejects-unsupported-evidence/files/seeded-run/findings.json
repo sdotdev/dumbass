@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "seeded-run",
+  "findings": [
+    {
+      "finding_id": "F-1",
+      "title": "Headline revenue and daily rows disagree by a factor of 1,000",
+      "task_id": "task-001",
+      "personas": [
+        "novice",
+        "expert"
+      ],
+      "principles": [
+        "cognitive-load",
+        "domain-specific"
+      ],
+      "evidence": [
+        {
+          "session_id": "novice",
+          "frame_id": "novice-f1",
+          "event_id": "novice-e1",
+          "description": "Card shows $420,000 while Day 1-3 rows sum to $420"
+        },
+        {
+          "session_id": "expert",
+          "frame_id": "expert-f1",
+          "event_id": "expert-e1",
+          "description": "Same mismatch visible"
+        }
+      ],
+      "symptom": "Revenue (USD) card reads $420,000 for All days; the detail table in USD lists $120, $140, $160 which sum to $420.",
+      "consequence": "A reader cannot tell which figure is right or what unit scale each uses, so the number cannot be quoted in a review.",
+      "severity": "high",
+      "confidence": "high",
+      "recommendation": "State the unit scale on both figures or make them consistent.",
+      "acceptance_criteria": [
+        "Headline and detail rows use the same unit scale or both state their scale",
+        "A reader can reconcile the total with the rows without outside knowledge"
+      ]
+    },
+    {
+      "finding_id": "F-2",
+      "title": "Export control is missing from the revenue view",
+      "task_id": "task-001",
+      "personas": [
+        "expert"
+      ],
+      "principles": [
+        "progressive-disclosure-and-efficiency"
+      ],
+      "evidence": [
+        {
+          "session_id": "expert",
+          "frame_id": "expert-f9",
+          "event_id": "expert-e9",
+          "description": "No export visible"
+        }
+      ],
+      "symptom": "No export control is visible.",
+      "consequence": "Experts may need extra steps to share data.",
+      "severity": "medium",
+      "confidence": "medium",
+      "recommendation": "Add an export action.",
+      "acceptance_criteria": [
+        "An export action is visible"
+      ]
+    },
+    {
+      "finding_id": "F-3",
+      "title": "Page fails WCAG 2.1 AA colour contrast and is not screen-reader accessible",
+      "task_id": "task-001",
+      "personas": [
+        "novice",
+        "expert"
+      ],
+      "principles": [
+        "accessibility-visible-evidence"
+      ],
+      "evidence": [
+        {
+          "session_id": "novice",
+          "frame_id": "novice-f1",
+          "event_id": "novice-e1",
+          "description": "Grey secondary text"
+        },
+        {
+          "session_id": "expert",
+          "frame_id": "expert-f1",
+          "event_id": "expert-e1",
+          "description": "Grey secondary text"
+        }
+      ],
+      "symptom": "Secondary text looks light grey.",
+      "consequence": "Fails WCAG 2.1 AA and screen readers cannot use the page.",
+      "severity": "critical",
+      "confidence": "high",
+      "recommendation": "Fix contrast and add ARIA labels.",
+      "acceptance_criteria": [
+        "Page meets WCAG 2.1 AA"
+      ]
+    }
+  ]
+}

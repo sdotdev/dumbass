@@ -15,9 +15,14 @@ const directFiles = [
   ["protocol/templates/report.md", "assets/report-template.md"],
   ["protocol/templates/remediation.md", "assets/remediation-template.md"],
 ];
+// Skills that carry extra canonical material beyond the shared contracts.
+// Playbooks are fix strategy and verification guidance, so only the planner and implementer bundle them.
+const playbookSkills = new Set(["dumbass-remediate", "dumbass-fix"]);
+const playbookNames = (await readdir(path.join(root, "playbooks"))).filter(name => name.endsWith(".md")).sort();
 const failures = [];
 for (const skill of skills) {
   const comparisons = [...directFiles.map(([canonical, bundled]) => [canonical, `skills/${skill}/${bundled}`])];
+  if (playbookSkills.has(skill)) for (const name of playbookNames) comparisons.push([`playbooks/${name}`, `skills/${skill}/assets/playbooks/${name}`]);
   for (const [canonicalDir, bundledDir] of mappings) {
     for (const name of await readdir(path.join(root, canonicalDir))) comparisons.push([`${canonicalDir}/${name}`, `skills/${skill}/${bundledDir}/${name}`]);
   }

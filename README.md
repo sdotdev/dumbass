@@ -20,6 +20,10 @@ The name is playful; the method never assigns intelligence labels to people. Rep
 | `dumbass-remediate` | Finding-to-change planning |
 | `dumbass-fix` | Authorized implementation and retesting |
 
+## How the skills fit together
+
+A typical run is `dumbass-audit` (or the dashboard or mobile variant) → `dumbass-novice` and `dumbass-expert` in separate contexts → `dumbass-observe` → optionally `dumbass-remediate` → `dumbass-fix`. Each skill names its neighbors and still works when installed alone, falling back to its bundled persona cards and protocol. `dumbass-remediate` and `dumbass-fix` also bundle the [remediation playbooks](playbooks/general-web.md). Audit output goes to `.dumbass-runs/<run_id>/`, which is gitignored.
+
 ## Install
 
 Install through the Skills CLI (recommended):
