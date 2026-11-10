@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dumbass.dev/protocol/1.0.0/coverage.schema.json",
+  "title": "Dumbass coverage",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,127}$"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,127}$"
+          },
+          "persona": {
+            "$ref": "common.schema.json#/$defs/persona"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "attempted",
+              "skipped",
+              "blocked",
+              "unsupported"
+            ]
+          },
+          "states": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "principle_coverage": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "principle": {
+                  "type": "string",
+                  "enum": ["information-scent", "cognitive-load", "affordance-and-status", "error-prevention-and-recovery", "progressive-disclosure-and-efficiency", "accessibility-visible-evidence", "ai-trust-and-control", "domain-specific"]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": ["checked", "finding", "not-observable", "blocked"]
+                },
+                "note": { "type": "string", "minLength": 1 }
+              },
+              "required": ["principle", "status", "note"],
+              "additionalProperties": false
+            },
+            "minItems": 1
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "task_id",
+          "persona",
+          "status",
+          "states",
+          "principle_coverage",
+          "limitations"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "items",
+    "limitations"
+  ],
+  "additionalProperties": false
+}

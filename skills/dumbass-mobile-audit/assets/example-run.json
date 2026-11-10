@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "example-run",
+  "created_at": "2026-01-01T00:00:00Z",
+  "suite_version": "1.0.0",
+  "mode": "interactive",
+  "profile": "mobile-web",
+  "target": {
+    "url": "https://example.test/",
+    "allowed_origins": [
+      "https://example.test"
+    ]
+  },
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "device_scale_factor": 1
+  },
+  "personas": [
+    "novice",
+    "expert"
+  ],
+  "tasks": [
+    {
+      "task_id": "task-001",
+      "title": "Find the monthly price",
+      "start_url": "https://example.test/",
+      "success_criteria": [
+        "Monthly price is visible on screen"
+      ]
+    }
+  ],
+  "action_policy": {
+    "allowed_actions": [
+      "click",
+      "scroll",
+      "keypress",
+      "wait"
+    ],
+    "authorized_mutations": []
+  },
+  "budgets": {
+    "max_actions": 30,
+    "max_duration_seconds": 300
+  },
+  "provenance": {
+    "host": "example-host",
+    "protocol_version": "1.0.0",
+    "skill_versions": { "installed-skill": "1.0.0" }
+  }
+}

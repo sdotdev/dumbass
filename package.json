@@ -1,0 +1,28 @@
+{
+  "name": "@dumbass-ux/suite",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Evidence-backed, screenshot-only UX audit skills for web, dashboards, and mobile web.",
+  "type": "module",
+  "workspaces": ["packages/*"],
+  "engines": { "node": ">=22.6" },
+  "scripts": {
+    "build": "npm run build -w @dumbass/runner && npm run build -w @dumbass/adapter-web",
+    "test": "npm run test --workspaces --if-present && node --test tests/build.test.mjs tests/install.test.mjs tests/schemas.test.mjs && node --test evals/tests/*.test.mjs",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "validate": "node scripts/validate-skills.mjs && node scripts/check-links.mjs && node scripts/check-bundle-drift.mjs && npm run build && npm run typecheck && npm test",
+    "package:skills": "node scripts/package-skills.mjs",
+    "test:package": "npm run package:skills && node --test tests/portable-artifact.test.mjs",
+    "test:install": "node --test tests/install.test.mjs",
+    "test:browser": "node evals/browser-smoke.mjs",
+    "security:audit": "npm audit --audit-level=high",
+    "release:check": "npm run validate && npm run test:browser && npm run test:package && npm run security:audit && node scripts/check-pilot.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "playwright": "^1.57.0",
+    "typescript": "^5.9.3"
+  },
+  "license": "Apache-2.0"
+}

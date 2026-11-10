@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dumbass.dev/protocol/1.0.0/run.schema.json",
+  "title": "Dumbass run",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,127}$"
+    },
+    "created_at": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "suite_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "static",
+        "interactive"
+      ]
+    },
+    "profile": {
+      "type": "string",
+      "enum": [
+        "web",
+        "dashboard",
+        "mobile-web"
+      ]
+    },
+    "target": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "allowed_origins": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "url",
+        "allowed_origins"
+      ],
+      "additionalProperties": false
+    },
+    "viewport": {
+      "$ref": "common.schema.json#/$defs/viewport"
+    },
+    "personas": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/persona"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/task"
+      },
+      "minItems": 1
+    },
+    "action_policy": {
+      "type": "object",
+      "properties": {
+        "allowed_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "click",
+              "tap",
+              "scroll",
+              "swipe",
+              "type",
+              "keypress",
+              "wait"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "authorized_mutations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "authorization_id": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,127}$"
+              },
+              "task_id": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,127}$"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "authorization_id",
+              "task_id",
+              "description"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "allowed_actions",
+        "authorized_mutations"
+      ],
+      "additionalProperties": false
+    },
+    "budgets": {
+      "type": "object",
+      "properties": {
+        "max_actions": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_duration_seconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "max_actions",
+        "max_duration_seconds"
+      ],
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "protocol_version": {
+          "const": "1.0.0"
+        },
+        "skill_versions": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "host",
+        "protocol_version",
+        "skill_versions"
+      ],
+      "additionalProperties": false
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "created_at",
+    "suite_version",
+    "mode",
+    "profile",
+    "target",
+    "viewport",
+    "personas",
+    "tasks",
+    "action_policy",
+    "budgets",
+    "provenance"
+  ],
+  "additionalProperties": false
+}

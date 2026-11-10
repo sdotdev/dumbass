@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dumbass.dev/protocol/1.0.0/findings.schema.json",
+  "title": "Dumbass findings",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,127}$"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "finding_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,127}$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "task_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,127}$"
+          },
+          "personas": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/persona"
+            },
+            "uniqueItems": true,
+            "minItems": 1
+          },
+          "principles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["information-scent", "cognitive-load", "affordance-and-status", "error-prevention-and-recovery", "progressive-disclosure-and-efficiency", "accessibility-visible-evidence", "ai-trust-and-control", "domain-specific"]
+            },
+            "uniqueItems": true,
+            "minItems": 1
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/evidence"
+            },
+            "minItems": 1
+          },
+          "symptom": {
+            "type": "string",
+            "minLength": 1
+          },
+          "consequence": {
+            "type": "string",
+            "minLength": 1
+          },
+          "severity": {
+            "$ref": "common.schema.json#/$defs/severity"
+          },
+          "confidence": {
+            "$ref": "common.schema.json#/$defs/confidence"
+          },
+          "recommendation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "acceptance_criteria": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "fingerprint": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "finding_id",
+          "title",
+          "task_id",
+          "personas",
+          "principles",
+          "evidence",
+          "symptom",
+          "consequence",
+          "severity",
+          "confidence",
+          "recommendation",
+          "acceptance_criteria"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "findings"
+  ],
+  "additionalProperties": false
+}

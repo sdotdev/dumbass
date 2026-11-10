@@ -1,0 +1,8 @@
+{
+  "status": "approved",
+  "reviewer": "replace-with-human-reviewer",
+  "reviewed_at": "2026-11-10T00:00:00Z",
+  "commit": "replace-with-full-commit-sha",
+  "scope": ["general-web", "dashboard", "mobile-web"],
+  "notes": "Record the human-reviewed pilot decision and material limitations. Do not commit sensitive customer evidence."
+}

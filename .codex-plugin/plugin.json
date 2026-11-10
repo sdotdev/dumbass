@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "name": "dumbass-ux",
+  "version": "0.1.0",
+  "description": "Screenshot-only UX audits for low-context and efficiency-seeking journeys, with evidence-backed remediation.",
+  "skills": "./skills/"
+}

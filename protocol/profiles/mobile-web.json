@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "mobile-web",
+  "label": "Mobile web",
+  "scope": "Web interfaces in a configured mobile viewport",
+  "extends": "web",
+  "checks": [
+    "Navigation disclosure and back behavior",
+    "Horizontal overflow and sticky controls",
+    "Keyboard occlusion and input progression",
+    "Input mode and visible validation",
+    "Touch-target ambiguity and modal dismissal",
+    "Safe-area and orientation behavior where supported",
+    "Gesture discoverability"
+  ],
+  "limitations": [
+    "Emulation is not native iOS or Android testing",
+    "Screenshot pixels are not physical millimeters",
+    "Real-device performance and assistive technology remain untested"
+  ]
+}

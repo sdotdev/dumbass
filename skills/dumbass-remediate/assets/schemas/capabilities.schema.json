@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dumbass.dev/protocol/1.0.0/capabilities.schema.json",
+  "title": "Dumbass capabilities",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "host": {
+      "type": "string",
+      "minLength": 1
+    },
+    "adapter_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "static",
+        "interactive"
+      ]
+    },
+    "capabilities": {
+      "type": "object",
+      "properties": {
+        "screenshots": {
+          "type": "boolean"
+        },
+        "coordinate_actions": {
+          "type": "boolean"
+        },
+        "keyboard": {
+          "type": "boolean"
+        },
+        "isolated_sessions": {
+          "type": "boolean"
+        },
+        "baseline_reset": {
+          "type": "boolean"
+        },
+        "enforced_tool_boundary": {
+          "type": "boolean"
+        },
+        "native_device": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "screenshots",
+        "coordinate_actions",
+        "keyboard",
+        "isolated_sessions",
+        "baseline_reset",
+        "enforced_tool_boundary",
+        "native_device"
+      ],
+      "additionalProperties": false
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "host",
+    "adapter_version",
+    "mode",
+    "capabilities",
+    "limitations"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "web",
+  "label": "General web",
+  "scope": "Rendered websites and web applications",
+  "checks": [
+    "Primary purpose and next action",
+    "Navigation and wayfinding",
+    "Forms, validation, and recovery",
+    "Loading, empty, error, and success feedback",
+    "Reversible decisions and clear consequences"
+  ],
+  "limitations": [
+    "Only observed states can support findings",
+    "Screenshots alone cannot establish accessibility conformance"
+  ]
+}

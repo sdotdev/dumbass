@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "dashboard",
+  "label": "Dashboard",
+  "scope": "Web dashboards and data-heavy administrative tools",
+  "extends": "web",
+  "checks": [
+    "Filter scope and persistence",
+    "Date range and timezone visibility",
+    "Metric definitions and units",
+    "Chart interpretation and drilldown",
+    "Table sort, density, pagination, and bulk actions",
+    "Export progress and completion",
+    "Stale data, empty, loading, and error states",
+    "Role-dependent controls when authorized accounts exist"
+  ],
+  "limitations": [
+    "Metric correctness requires separate data verification",
+    "Unvisited roles and unobserved states remain untested"
+  ]
+}
