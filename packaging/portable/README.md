@@ -11,3 +11,5 @@ Install a subset with `--skills dumbass-audit,dumbass-novice`. Existing destinat
 The portable bundle supplies instructions and contracts. Enforced screenshot-only isolation requires a compatible trusted runner. General, dashboard, and mobile-web audits are included; mobile-web results do not establish native-app behavior.
 
 License: Apache-2.0. Project source and full documentation: <https://github.com/sdotdev/dumbass>.
+
+From GitHub, the Skills CLI can install the suite directly with `npx skills add sdotdev/dumbass --all`.

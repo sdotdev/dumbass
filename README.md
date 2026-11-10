@@ -22,6 +22,22 @@ The name is playful; the method never assigns intelligence labels to people. Rep
 
 ## Install
 
+Install through the Skills CLI (recommended):
+
+```bash
+npx skills add sdotdev/dumbass --all
+```
+
+List the available skills without installing:
+
+```bash
+npx skills add sdotdev/dumbass --list
+```
+
+Install only one skill with `--skill dumbass-audit`, or omit `--all` for interactive selection.
+
+Alternatively, clone the repository and use its portable installer.
+
 Install every skill into a host-compatible skills directory:
 
 ```bash
