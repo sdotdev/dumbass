@@ -91,3 +91,63 @@ test("skill validator rejects routing text that names a skill that does not exis
 test("skill validator accepts the shipped skills", async () => {
   assert.equal(await validatorFailures(async () => {}), "");
 });
+
+// ---- mobile rendering
+test("the mobile audit skill runs on its own when installed with only Node", async () => {
+  const target = await mkdtemp(path.join(tmpdir(), "dumbass-mobile-install-"));
+  try {
+    await exec(process.execPath, [path.join(root, "scripts/install.mjs"), "--target", target, "--skills", "dumbass-mobile-audit"]);
+    const cli = path.join(target, "dumbass-mobile-audit", "scripts", "cli.mjs");
+    const help = await exec(process.execPath, [cli, "help"]);
+    assert.match(JSON.parse(help.stdout).usage, /plan and select never execute anything/);
+    const decision = JSON.parse((await exec(process.execPath, [cli, "select", "--platform", "ios", "--framework", "swiftui", "--remote", "declined"])).stdout);
+    // On this machine the answer depends on the OS, but it is always a structured decision that starts nothing.
+    assert.ok(["ready", "needs-prerequisites", "declined"].includes(decision.status), decision.status);
+    assert.equal(decision.remote === null || decision.remote === undefined, true, "a declined remote route never carries a remote plan");
+    const schema = JSON.parse(await readFile(path.join(target, "dumbass-mobile-audit", "assets", "schemas", "render-manifest.schema.json"), "utf8"));
+    assert.equal(schema.$id, "https://dumbass.dev/protocol/1.0.0/render-manifest.schema.json");
+  } finally { await rm(target, { recursive: true, force: true }); }
+});
+
+test("only the mobile audit skill carries renderer scripts", async () => {
+  for (const skill of skills) {
+    let names = [];
+    try { names = await readdir(path.join(skillsDir, skill, "scripts")); } catch { /* absent */ }
+    if (skill === "dumbass-mobile-audit") assert.ok(names.includes("cli.mjs") && names.includes("evidence.mjs"), "the mobile audit skill must ship its renderer");
+    else assert.deepEqual(names, [], `${skill} should not carry scripts`);
+  }
+});
+
+test("evaluator skills stay free of any renderer knowledge", async () => {
+  for (const skill of ["dumbass-novice", "dumbass-expert"]) {
+    const body = await readFile(path.join(skillsDir, skill, "SKILL.md"), "utf8");
+    assert.doesNotMatch(body, /cli\.mjs|render-manifest|renders\/|swiftui-render|mugshot|paparazzi|classification|evaluator-input/i, `${skill} must not know how screenshots were produced`);
+    assert.match(body, /Never uses source, DOM, selectors, console/);
+  }
+});
+
+test("the mobile audit skill asks before installing, editing or sending code anywhere", async () => {
+  const body = await readFile(path.join(skillsDir, "dumbass-mobile-audit", "SKILL.md"), "utf8");
+  for (const must of [/ask before installing/i, /needs-consent/, /describe-remote/, /authorize --user-confirmed/, /Agreement to .run the audit. is not agreement to send code anywhere/, /Do not fall back to a different renderer on your own/, /images only/i, /never fabricate a screenshot/i, /Approximate screenshots are withheld/]) {
+    assert.match(body, must, String(must));
+  }
+});
+
+test("the mobile reference states exactly what is implemented and what is only mocked", async () => {
+  const text = await readFile(path.join(skillsDir, "dumbass-mobile-audit", "references", "mobile-rendering.md"), "utf8");
+  assert.match(text, /Mocked only/);
+  assert.match(text, /Never run against live GitHub here/);
+  assert.match(text, /Not provided/);
+  assert.match(text, /cross-platform-swift-compatible.*\*\*Approximate/s);
+});
+
+test("a native mobile run manifest validates with the mobile-native profile, and unknown profiles are still rejected", async () => {
+  const ajv = await loadAjv();
+  const validate = ajv.getSchema("https://dumbass.dev/protocol/1.0.0/run.schema.json");
+  const example = JSON.parse(await readFile(path.join(skillsDir, "dumbass-mobile-audit", "assets", "example-run.json"), "utf8"));
+  assert.equal(validate({ ...example, profile: "mobile-native", mode: "static" }), true, JSON.stringify(validate.errors));
+  assert.equal(validate({ ...example, profile: "mobile-quantum" }), false);
+  const profile = JSON.parse(await readFile(path.join(skillsDir, "dumbass-mobile-audit", "assets", "profiles", "mobile-native.json"), "utf8"));
+  assert.equal(profile.profile_id, "mobile-native");
+  assert.ok(profile.limitations.some((l) => /not a physical device/.test(l)));
+});

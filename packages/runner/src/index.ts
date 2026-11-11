@@ -33,7 +33,7 @@ export interface AuditRun {
   readonly created_at: string;
   readonly suite_version: string;
   readonly mode: "static" | "interactive";
-  readonly profile: "web" | "dashboard" | "mobile-web";
+  readonly profile: "web" | "dashboard" | "mobile-web" | "mobile-native";
   readonly target: { readonly url: string; readonly allowed_origins: readonly string[] };
   readonly viewport: { readonly width: number; readonly height: number; readonly device_scale_factor: number };
   readonly personas: readonly ("novice" | "expert")[];

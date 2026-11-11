@@ -1,11 +1,11 @@
 ---
 name: dumbass-audit
-description: Run a UX audit of a website or web app by having two independent screenshot-only evaluators, a first-time novice and an efficiency-seeking expert, attempt the same task, then report evidence-backed findings. Use whenever someone asks to audit, review, or usability-test a site, flow, checkout, signup, or landing page, to find where users get confused or slowed down, or to critique screenshots of a web UI, even if they never say UX audit. Dashboards and phone-sized viewports have their own skills (dumbass-dashboard-audit, dumbass-mobile-audit). Produces a report only and never changes code.
+description: Run a UX audit of a website or web app by having two independent screenshot-only evaluators, a first-time novice and an efficiency-seeking expert, attempt the same task, then report evidence-backed findings. Use whenever someone asks to audit, review, or usability-test a site, flow, checkout, signup, or landing page, to find where users get confused or slowed down, or to critique screenshots of a web UI, even if they never say UX audit. Dashboards and mobile (native iOS, Android, React Native, or a phone-sized website) have their own skills (dumbass-dashboard-audit, dumbass-mobile-audit). Produces a report only and never changes code.
 license: Apache-2.0
 compatibility: Requires an agent that can read images. Interactive journeys require screenshot capture and coordinate or keyboard actions; enforced isolation requires a restricted adapter.
 metadata:
   author: Dumbass contributors
-  version: "1.1.0"
+  version: "1.2.0"
   protocol-version: "1.0.0"
 ---
 
@@ -14,7 +14,7 @@ metadata:
 You run a UX audit by having two evaluators attempt the same task from screenshots alone, then turning what they saw into evidence-backed findings. The independence is the whole point. A novice and an expert only tell you something if neither knows more than the screen shows, so most of this procedure protects that: separate contexts, no source or DOM, no peeking at each other.
 
 ## Where this fits
-`dumbass-audit` (you) → `dumbass-novice` and `dumbass-expert`, one isolated context each → `dumbass-observe` → optionally `dumbass-remediate` → `dumbass-fix`. Route dashboards to `dumbass-dashboard-audit` and phone-sized viewports to `dumbass-mobile-audit`.
+`dumbass-audit` (you) → `dumbass-novice` and `dumbass-expert`, one isolated context each → `dumbass-observe` → optionally `dumbass-remediate` → `dumbass-fix`. Route dashboards to `dumbass-dashboard-audit`. Route native iOS, Android and React Native apps, mobile project folders and phone-sized viewports to `dumbass-mobile-audit`, which owns screenshot rendering for them; do not try to render a native app from here.
 
 If the sibling skills are installed, delegate to them, one subagent or context per persona. If only this skill is installed, give each context the persona card in `assets/personas/` and the protocol in `references/`; every skill bundles the same protocol, so nothing is missing. If you cannot get separate contexts, running the personas one after the other in one context is a degraded mode. Say so before you start and label the results non-independent in `capabilities.json` and the report, because the second persona has already seen the first one's reasoning.
 

@@ -38,3 +38,139 @@ Coordinates here are in CSS viewport units, so a tap at (195, 640) lands in the 
 ```
 
 The hash above is a placeholder. A real frame record carries the actual sha256 of the stored image. Follow [the audit protocol](audit-protocol.md) and the [mobile-web profile](../assets/profiles/mobile-web.json).
+
+## Render manifest for a mixed session
+
+One iOS screen rendered locally with `swiftui-render`, one that failed, and one imported approximation. The approximate entry is labelled as such and is withheld from evaluators unless the user approves it. The failed screen stays in the record with its reason, so the session is `incomplete` rather than quietly looking whole. The hashes are placeholders.
+
+```json schema=render-manifest
+{
+  "schema_version": "1.0.0",
+  "run_id": "demo-run",
+  "session": {
+    "status": "incomplete",
+    "requested_screens": [
+      "login",
+      "settings",
+      "onboarding"
+    ],
+    "reasons": [
+      "settings: no usable screenshot (failed)",
+      "ios-settings-failed: failed (TOOL_FAILED)"
+    ]
+  },
+  "renders": [
+    {
+      "screenshot_id": "ios-login-light",
+      "status": "captured",
+      "platform": "ios",
+      "framework": "swiftui",
+      "renderer": {
+        "name": "swiftui-render",
+        "version": "0.2.0",
+        "method": "swiftui-render",
+        "classification": "apple-swiftui"
+      },
+      "execution": {
+        "location": "local",
+        "os": "macos",
+        "toolchain": "Xcode 16.2"
+      },
+      "theme": "light",
+      "ui_state": "default",
+      "screen_id": "login",
+      "captured_at": "2026-11-11T09:00:00Z",
+      "revision": null,
+      "source_project_id": "demo-app",
+      "limitations": [
+        "Renders on macOS, not on the iOS runtime, so iOS-only controls and system chrome can differ"
+      ],
+      "device": {
+        "name": "iPhone preset (390x844 pt)",
+        "width": 390,
+        "height": 844,
+        "pixel_width": 780,
+        "pixel_height": 1688,
+        "scale_factor": 2,
+        "orientation": "portrait"
+      },
+      "file": {
+        "path": "renders/screenshots/ios/ios-login-light.png",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "media_type": "image/png"
+      }
+    },
+    {
+      "screenshot_id": "ios-settings-failed",
+      "status": "failed",
+      "platform": "ios",
+      "framework": "swiftui",
+      "renderer": {
+        "name": "swiftui-render",
+        "version": "0.2.0",
+        "method": "swiftui-render",
+        "classification": "apple-swiftui"
+      },
+      "execution": {
+        "location": "local",
+        "os": "macos",
+        "toolchain": "Xcode 16.2"
+      },
+      "theme": "light",
+      "ui_state": "default",
+      "screen_id": "settings",
+      "captured_at": "2026-11-11T09:00:00Z",
+      "revision": null,
+      "source_project_id": "demo-app",
+      "limitations": [
+        "Renders a standalone Swift file that defines a Preview view, not a running app"
+      ],
+      "failure": {
+        "code": "TOOL_FAILED",
+        "message": "swiftui-render could not compile the preview: unknown type 'AppState'"
+      }
+    },
+    {
+      "screenshot_id": "ios-onboarding-light",
+      "status": "approximate",
+      "platform": "ios",
+      "framework": "swiftui",
+      "renderer": {
+        "name": "SwiftOpenUI",
+        "version": "0.2.0",
+        "method": "swiftopenui",
+        "classification": "cross-platform-swift-compatible"
+      },
+      "execution": {
+        "location": "local",
+        "os": "linux",
+        "toolchain": null
+      },
+      "theme": "light",
+      "ui_state": "default",
+      "screen_id": "onboarding",
+      "captured_at": "2026-11-11T09:00:00Z",
+      "revision": null,
+      "source_project_id": "demo-app",
+      "limitations": [
+        "Not Apple's SwiftUI",
+        "Has no iOS backend, so the image does not show iOS chrome"
+      ],
+      "device": {
+        "name": "iPhone preset (390x844 pt)",
+        "width": 390,
+        "height": 844,
+        "pixel_width": 780,
+        "pixel_height": 1688,
+        "scale_factor": 2,
+        "orientation": "portrait"
+      },
+      "file": {
+        "path": "renders/screenshots/ios/ios-onboarding-light.png",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "media_type": "image/png"
+      }
+    }
+  ]
+}
+```

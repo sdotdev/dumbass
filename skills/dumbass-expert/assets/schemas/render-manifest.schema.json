@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dumbass.dev/protocol/1.0.0/render-manifest.schema.json",
+  "title": "Dumbass render manifest",
+  "description": "Provenance for screenshots produced by a mobile renderer. It records what was rendered, by which method, where, and with what limits, so a report can never present an approximation as genuine platform output. It stays with the controller; evaluators receive the images only.",
+  "type": "object",
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "run_id": { "$ref": "common.schema.json#/$defs/id" },
+    "session": {
+      "type": "object",
+      "properties": {
+        "status": { "type": "string", "enum": ["complete", "incomplete"] },
+        "requested_screens": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "reasons": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      },
+      "required": ["status", "requested_screens", "reasons"],
+      "additionalProperties": false,
+      "allOf": [
+        { "if": { "properties": { "status": { "const": "incomplete" } }, "required": ["status"] }, "then": { "properties": { "reasons": { "type": "array", "minItems": 1 } } } }
+      ]
+    },
+    "renders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "screenshot_id": { "$ref": "common.schema.json#/$defs/id" },
+          "status": { "type": "string", "enum": ["captured", "approximate", "failed", "unsupported", "missing"] },
+          "platform": { "type": "string", "enum": ["ios", "android", "react-native", "mobile-web"] },
+          "native_platform": { "type": "string", "enum": ["ios", "android"] },
+          "framework": { "type": "string", "enum": ["swiftui", "uikit", "compose", "android-views", "react-native", "web", "unknown"] },
+          "renderer": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "version": { "type": ["string", "null"] },
+              "method": { "$ref": "common.schema.json#/$defs/id" },
+              "classification": { "type": "string", "enum": ["apple-swiftui", "apple-uikit", "android-compose", "android-views", "react-native-native", "mobile-web", "cross-platform-swift-compatible"] }
+            },
+            "required": ["name", "version", "method", "classification"],
+            "additionalProperties": false
+          },
+          "execution": {
+            "type": "object",
+            "properties": {
+              "location": { "type": "string", "enum": ["local", "remote"] },
+              "os": { "type": "string", "minLength": 1 },
+              "toolchain": { "type": ["string", "null"] },
+              "remote": {
+                "type": "object",
+                "properties": {
+                  "provider": { "const": "github-actions" },
+                  "repository": { "type": "string", "minLength": 1 },
+                  "revision": { "type": "string", "pattern": "^[a-f0-9]{7,64}$" },
+                  "workflow": { "type": "string", "minLength": 1 },
+                  "run_id": { "type": ["string", "null"] },
+                  "authorization_id": { "$ref": "common.schema.json#/$defs/id" }
+                },
+                "required": ["provider", "repository", "revision", "workflow", "run_id", "authorization_id"],
+                "additionalProperties": false
+              }
+            },
+            "required": ["location", "os", "toolchain"],
+            "additionalProperties": false,
+            "allOf": [
+              { "if": { "properties": { "location": { "const": "remote" } }, "required": ["location"] }, "then": { "required": ["remote"] } }
+            ]
+          },
+          "device": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "width": { "type": "number", "exclusiveMinimum": 0 },
+              "height": { "type": "number", "exclusiveMinimum": 0 },
+              "pixel_width": { "type": "integer", "minimum": 1 },
+              "pixel_height": { "type": "integer", "minimum": 1 },
+              "scale_factor": { "type": "number", "exclusiveMinimum": 0 },
+              "orientation": { "type": "string", "enum": ["portrait", "landscape"] }
+            },
+            "required": ["width", "height", "pixel_width", "pixel_height", "scale_factor", "orientation"],
+            "additionalProperties": false
+          },
+          "theme": { "type": "string", "enum": ["light", "dark", "unspecified"] },
+          "ui_state": { "type": "string", "minLength": 1 },
+          "screen_id": { "type": "string", "minLength": 1 },
+          "captured_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+          "revision": { "type": ["string", "null"] },
+          "source_project_id": { "$ref": "common.schema.json#/$defs/id" },
+          "limitations": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "file": {
+            "type": "object",
+            "properties": {
+              "path": { "$ref": "common.schema.json#/$defs/relative_path" },
+              "sha256": { "$ref": "common.schema.json#/$defs/sha256" },
+              "media_type": { "type": "string", "enum": ["image/png", "image/webp"] }
+            },
+            "required": ["path", "sha256", "media_type"],
+            "additionalProperties": false
+          },
+          "failure": {
+            "type": "object",
+            "properties": {
+              "code": { "type": "string", "minLength": 1 },
+              "message": { "type": "string", "minLength": 1 }
+            },
+            "required": ["code", "message"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["screenshot_id", "status", "platform", "framework", "renderer", "execution", "theme", "ui_state", "screen_id", "captured_at", "revision", "source_project_id", "limitations"],
+        "additionalProperties": false,
+        "allOf": [
+          { "if": { "properties": { "status": { "enum": ["captured", "approximate"] } }, "required": ["status"] }, "then": { "required": ["file", "device"] } },
+          { "if": { "properties": { "status": { "enum": ["failed", "unsupported", "missing"] } }, "required": ["status"] }, "then": { "required": ["failure"] } },
+          { "if": { "properties": { "platform": { "const": "react-native" } }, "required": ["platform"] }, "then": { "required": ["native_platform"] } }
+        ]
+      }
+    },
+    "extensions": { "type": "object", "additionalProperties": true }
+  },
+  "required": ["schema_version", "run_id", "session", "renders"],
+  "additionalProperties": false
+}

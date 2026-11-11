@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "mobile-native",
+  "label": "Mobile native",
+  "scope": "Native iOS, native Android and React Native screens judged from rendered screenshots",
+  "checks": [
+    "Primary purpose and next action on each screen",
+    "Navigation and wayfinding cues that are visible, such as titles, tabs and back controls",
+    "Layout, clipping and truncation at the rendered size and scale",
+    "Visible affordances: whether controls look tappable, and selected, disabled and loading states",
+    "Forms: visible labels, requirements, validation and error states that appear in the image",
+    "Empty, loading and error states that appear in the image",
+    "Apparent touch-target size and spacing, as drawn, not as physically measured",
+    "Platform convention cues that are visible, without claiming native behavior"
+  ],
+  "limitations": [
+    "Screenshots from a renderer are not a physical device; each image records how it was made and what that method cannot show",
+    "Gestures, animation, keyboard interaction, focus, screen reader behavior, permission flows, network behavior, performance and crashes are not established by static screenshots",
+    "Approximate renders are not genuine platform output and are excluded from evaluation unless the user approves them",
+    "A web build of a native app is mobile web evidence and says nothing about the native app"
+  ]
+}

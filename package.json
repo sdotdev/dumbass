@@ -14,7 +14,8 @@
     "package:skills": "node scripts/package-skills.mjs",
     "test:package": "npm run package:skills && node --test tests/portable-artifact.test.mjs",
     "test:install": "node --test tests/install.test.mjs",
-    "test:browser": "node evals/browser-smoke.mjs",
+    "test:browser": "node evals/browser-smoke.mjs && npm run test:browser -w @dumbass/mobile-renderer",
+    "sync:skills": "node scripts/sync-skill-scripts.mjs",
     "security:audit": "npm audit --audit-level=high",
     "release:check": "npm run validate && npm run test:browser && npm run test:package && npm run security:audit && node scripts/check-pilot.mjs"
   },

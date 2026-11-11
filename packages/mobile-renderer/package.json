@@ -1,0 +1,17 @@
+{
+  "name": "@dumbass/mobile-renderer",
+  "version": "0.1.0",
+  "description": "Local-first mobile screenshot rendering with honest evidence provenance for Dumbass UX audits.",
+  "type": "module",
+  "exports": { ".": "./src/index.mjs" },
+  "bin": { "dumbass-render": "./src/cli.mjs" },
+  "files": ["src"],
+  "engines": { "node": ">=22.6" },
+  "peerDependencies": { "playwright": ">=1.40" },
+  "peerDependenciesMeta": { "playwright": { "optional": true } },
+  "scripts": {
+    "check:syntax": "node --check src/index.mjs && node --check src/cli.mjs && node --check src/contracts.mjs && node --check src/environment.mjs && node --check src/project.mjs && node --check src/selection.mjs && node --check src/consent.mjs && node --check src/hosted.mjs && node --check src/adapters.mjs && node --check src/evidence.mjs && node --check src/mobile-web.mjs",
+    "test": "node --test test/*.test.mjs",
+    "test:browser": "node --test test/browser/*.test.mjs"
+  }
+}

@@ -30,7 +30,8 @@
       "enum": [
         "web",
         "dashboard",
-        "mobile-web"
+        "mobile-web",
+        "mobile-native"
       ]
     },
     "target": {
