@@ -24,7 +24,13 @@ Skill instructions were revised after an audit. Prompt changes need evaluation (
 - **Protocol change for review:** the run manifest `profile` enum gains `mobile-native` (and the runner's TypeScript type with it), plus a `mobile-native` profile. Without it a native audit would have to call itself `mobile-web`.
 - Implemented and run for real: mobile web against a real browser (`npm run test:browser`). Implemented and unit tested against fakes only: `swiftui-render`, Simulator and adb capture, Mugshot, Paparazzi, the hosted workflows and the `gh` transport. Import only: SwiftOpenUI. Not provided: hosted UIKit, hosted React Native iOS, headless UIKit. Compatibility of each third-party tool with a given project is not assumed and has not been verified.
 
+### README
+
+- Rewritten around the techniques that held up across the most-starred skills READMEs: a one-line hook, the reader's pain named first, a real result early (an actual recorded run on this repo's own fixture, with its screenshot), a one-command install, a plain-request-to-skill table, and a candid limits section. In the README only, the two testers are called Dumbass and Smartass, framed as what each knows about the product and never as a label for people; the skills keep their role names.
+- New `npm run stats` computes the README's figures from the repository (`--tests` also recounts the test suites), and `tests/readme.test.mjs` fails if a stated number drifts, an image or script goes missing, a skill is unlisted, the tester names appear in the skills, or the README stops explaining the names.
+
 ### Tooling
+
 
 
 - `scripts/validate-skills.mjs` also checks description length, YAML-safe single-line descriptions, frontmatter keys, `metadata.version`, body length and sibling-skill references.
